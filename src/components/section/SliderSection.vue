@@ -10,8 +10,6 @@
           :speed="1000"
           navigation
           :pagination="{ clickable: true }"
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
           :autoplay="{
             delay: 2000,
             disableOnInteraction: false,
@@ -105,15 +103,7 @@ export default {
     SwiperSlide,
   },
   setup() {
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log("slide change");
-    };
     return {
-      onSwiper,
-      onSlideChange,
       modules: [Navigation, Pagination, Autoplay],
     };
   },
@@ -134,7 +124,7 @@ export default {
           top: 0;
           width: 600px;
           height: 600px;
-          // z-index: -1;
+          z-index: -1;
         }
       }
       .text {
