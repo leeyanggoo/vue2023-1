@@ -2,36 +2,64 @@
   <section id="movieSection" :class="attr">
     <div class="movie__inner">
       <div class="movie__header container">
-        <h3>주간 시집 추천</h3>
+        <h3>문학 유튜브 추천</h3>
         <p>
-          시요일의 시선이 닿은 곳.
+          더 다양한 강의가 유튜브를 통해 제공되고 있습니다.
           <br />
+          구독과 좋아요! 부탁드립니다.
         </p>
-        <a href="/" class="button-red"> 자세히 보기 </a>
+        <router-link to="/movie" class="button-blue"> 자세히 보기 </router-link>
       </div>
       <div class="movie__body">
         <div class="movie__item">
-          <div>
-            <img src="@/assets/images/movie/book01.png" alt="시집" />
-          </div>
-          <div>
-            <img src="@/assets/images/movie/book02.png" alt="시집" />
-          </div>
-          <div>
-            <img src="@/assets/images/movie/book03.png" alt="시집" />
-          </div>
-          <div>
-            <img src="@/assets/images/movie/book04.png" alt="시집" />
-          </div>
+          <swiper
+            :loop="true"
+            :modules="modules"
+            :slides-per-view="6"
+            :speed="3000"
+            :autoplay="{
+              delay: 0,
+              disableOnInteraction: false,
+            }"
+          >
+            <swiper-slide v-for="(movie, index) in movies" :key="index">
+              <a
+                :href="`https://www.themoviedb.org/movie/${movie.id}?language=ko`"
+                target="_blank"
+              >
+                <img
+                  :src="`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`"
+                  :alt="movie.title"
+                />
+              </a>
+            </swiper-slide>
+          </swiper>
         </div>
       </div>
     </div>
   </section>
 </template>
 <script>
+import { Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+
 export default {
   props: {
     attr: String,
+    movies: {
+      type: Array,
+      required: true,
+    },
+  },
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  setup() {
+    return {
+      modules: [Autoplay],
+    };
   },
 };
 </script>
@@ -51,23 +79,6 @@ export default {
     a {
       border-radius: 50px;
       margin-bottom: 100px;
-    }
-  }
-  .movie__body {
-    padding-left: calc((100% - 1280px) / 2);
-
-    .movie__item {
-      display: flex;
-      gap: 20px;
-
-      > div {
-        width: 16%;
-
-        img {
-          width: 100%;
-          border-radius: 20px;
-        }
-      }
     }
   }
 }

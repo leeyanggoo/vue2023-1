@@ -2,7 +2,7 @@
   <ContTitle title="movies" />
   <MovieSlider :movies="movies" />
   <MovieSearch @search="SearchMovie" />
-  <MovieTag />
+  <MovieTag @search="SearchByGenre" />
   <MovieCont :movies="movies" />
 </template>
 
@@ -28,7 +28,7 @@ export default {
 
     const TopMovies = () => {
       fetch(
-        "https://api.themoviedb.org/3/movie/popular?api_key=35deb8704c2372673b61a5e807e3688e&language=ko-KR&query=SEARCH_QUERY&page=1&include_adult=true&limit=30"
+        "https://api.themoviedb.org/3/movie/popular?api_key=35deb8704c2372673b61a5e807e3688e&language=ko-KR&query=SEARCH_QUERY&page=1&include_adult=false&limit=30"
       )
         .then((response) => response.json())
         .then((result) => {
@@ -40,7 +40,7 @@ export default {
 
     const SearchMovie = async (query) => {
       await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=35deb8704c2372673b61a5e807e3688e&language=ko-KR&query=SEARCH_QUERY&page=1&include_adult=true&limit=30&query=${query}`
+        `https://api.themoviedb.org/3/search/movie?api_key=35deb8704c2372673b61a5e807e3688e&language=ko-KR&query=SEARCH_QUERY&page=1&include_adult=false&limit=30&query=${query}`
       )
         .then((response) => response.json())
         .then((result) => {
@@ -49,10 +49,22 @@ export default {
         .catch((error) => console.log(error));
     };
 
+    const SearchByGenre = async (genreId) => {
+      await fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=5db8e243a83e03b0e4f83c2e8e042370&language=ko-kr&with_genres=${genreId}`
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          movies.value = result.results;
+        })
+        .catch((err) => console.error(err));
+    };
+
     return {
       movies,
       TopMovies,
       SearchMovie,
+      SearchByGenre,
     };
   },
 };

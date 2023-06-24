@@ -5,6 +5,7 @@
       :modules="modules"
       :slides-per-view="3"
       :speed="1000"
+      :space-between="20"
       navigation
       :pagination="{ clickable: true }"
       :autoplay="{
@@ -53,4 +54,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style lang="scss">
+// movie_slider
+.movie_slider {
+  margin-bottom: 50px;
+}
+</style>

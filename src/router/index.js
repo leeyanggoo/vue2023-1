@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import IntroView from "../views/IntroView.vue";
-import MemberView from "../views/MemberView.vue";
 import MovieView from "../views/MovieView.vue";
 import PortView from "../views/PortView.vue";
 import UnsplashView from "../views/UnsplashView.vue";
@@ -17,11 +16,6 @@ const routes = [
     path: "/intro",
     name: "intro",
     component: IntroView,
-  },
-  {
-    path: "/member",
-    name: "member",
-    component: MemberView,
   },
   {
     path: "/movie",

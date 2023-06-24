@@ -7,22 +7,19 @@
       <nav class="header__nav" role="navigation">
         <ul>
           <li>
-            <router-link to="/member">웹진 소개</router-link>
+            <router-link to="/intro">웹진 소개</router-link>
           </li>
           <li>
             <router-link to="/port">오늘의 시</router-link>
           </li>
           <li>
-            <router-link to="/unsplash">연재</router-link>
+            <router-link to="/unsplash">사진</router-link>
           </li>
           <li>
-            <router-link to="/movie">출간</router-link>
+            <router-link to="/movie">영화</router-link>
           </li>
           <li>
-            <router-link to="/youtube">정기구독</router-link>
-          </li>
-          <li>
-            <router-link to="/">문의</router-link>
+            <router-link to="/youtube">유튜브</router-link>
           </li>
         </ul>
       </nav>

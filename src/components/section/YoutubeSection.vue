@@ -8,31 +8,60 @@
           <br />
           구독과 좋아요! 부탁드립니다.
         </p>
-        <a href="/" class="button-red"> 자세히 보기 </a>
+        <router-link to="/youtube" class="button-red">
+          자세히 보기
+        </router-link>
       </div>
       <div class="youtube__body">
         <div class="youtube__item">
-          <div>
-            <img src="@/assets/images/youtube/youtube01.png" alt="유튜브" />
-          </div>
-          <div>
-            <img src="@/assets/images/youtube/youtube02.png" alt="유튜브" />
-          </div>
-          <div>
-            <img src="@/assets/images/youtube/youtube03.png" alt="유튜브" />
-          </div>
-          <div>
-            <img src="@/assets/images/youtube/youtube04.png" alt="유튜브" />
-          </div>
+          <swiper
+            :loop="true"
+            :modules="modules"
+            :slides-per-view="6"
+            :speed="3000"
+            :autoplay="{
+              delay: 0,
+              disableOnInteraction: false,
+            }"
+          >
+            <swiper-slide v-for="(youtube, index) in youtubes" :key="index">
+              <a
+                :href="`https://www.youtube.com/watch?v=${youtube.id.videoId}`"
+                target="_blank"
+              >
+                <img
+                  :src="youtube.snippet.thumbnails.medium.url"
+                  :alt="youtube.snippet.title"
+                />
+              </a>
+            </swiper-slide>
+          </swiper>
         </div>
       </div>
     </div>
   </section>
 </template>
 <script>
+import { Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+
 export default {
   props: {
     attr: String,
+    youtubes: {
+      type: Array,
+      required: true,
+    },
+  },
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  setup() {
+    return {
+      modules: [Autoplay],
+    };
   },
 };
 </script>
@@ -54,24 +83,5 @@ export default {
       margin-bottom: 100px;
     }
   }
-  .youtube__body {
-    padding-left: calc((100% - 1280px) / 2);
-
-    .youtube__item {
-      display: flex;
-      gap: 10px;
-
-      > div {
-        width: 25%;
-
-        img {
-          width: 100%;
-          border-radius: 20px;
-        }
-      }
-    }
-  }
 }
-
-// youtube__page
 </style>

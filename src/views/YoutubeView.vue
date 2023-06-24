@@ -1,8 +1,8 @@
 <template>
   <ContTitle title="youtube" />
-  <YoutubeSlider />
-  <YoutubeSearch />
-  <YoutubeTag />
+  <YoutubeSlider :youtubes="youtubes" />
+  <YoutubeSearch @search="SearchYoutube" />
+  <YoutubeTag @search="SearchYoutube" />
   <YoutubeCont :youtubes="youtubes" />
 </template>
 
@@ -28,7 +28,7 @@ export default {
 
     const TopYoutubes = () => {
       fetch(
-        "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=30&q=%EB%AC%B8%ED%95%99&type=video&key=AIzaSyC5_JL1EdBzYtbTM03behVWBCGgNq_Y-18"
+        "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=28&q=%EB%AC%B8%ED%95%99&type=video&key=AIzaSyC5_JL1EdBzYtbTM03behVWBCGgNq_Y-18"
       )
         .then((response) => response.json())
         .then((result) => {
@@ -38,9 +38,21 @@ export default {
     };
     TopYoutubes();
 
+    const SearchYoutube = async (query) => {
+      await fetch(
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=28&q=${query}&type=video&key=AIzaSyC5_JL1EdBzYtbTM03behVWBCGgNq_Y-18`
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          youtubes.value = result.items;
+        })
+        .catch((error) => console.log("error", error));
+    };
+
     return {
       youtubes,
       TopYoutubes,
+      SearchYoutube,
     };
   },
 };

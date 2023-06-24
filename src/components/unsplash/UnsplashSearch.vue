@@ -60,7 +60,7 @@ export default {
     margin-right: 10px;
   }
   button {
-    @include button(#4857ec, #fff);
+    @include button(#00c183, #fff);
     border-radius: 50px;
   }
 }

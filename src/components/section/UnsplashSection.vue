@@ -2,37 +2,69 @@
   <section id="unsplashSection" :class="attr">
     <div class="unsplash__inner">
       <div class="unsplash__header container">
-        <h3>시요일 기획</h3>
+        <h3>시요일 감성</h3>
         <p>
-          문학의
+          시인은
           <br />
-          모든 고민
+          관찰하는 사람이다.
         </p>
-        <a href="/" class="button-blue"> 자세히 보기 </a>
+        <router-link to="/unsplash" class="button-green">
+          자세히 보기
+        </router-link>
       </div>
       <div class="unsplash__body">
         <div class="unsplash__item">
-          <div>
-            <img src="@/assets/images/unsplash/unsplash01.png" alt="기획" />
-          </div>
-          <div>
-            <img src="@/assets/images/unsplash/unsplash02.png" alt="기획" />
-          </div>
-          <div>
-            <img src="@/assets/images/unsplash/unsplash03.png" alt="기획" />
-          </div>
-          <div>
-            <img src="@/assets/images/unsplash/unsplash04.png" alt="기획" />
-          </div>
+          <swiper
+            :loop="true"
+            :modules="modules"
+            :slides-per-view="9"
+            :speed="3000"
+            :autoplay="{
+              delay: 0,
+              disableOnInteraction: false,
+            }"
+          >
+            <swiper-slide
+              v-for="(verticalImage, index) in verticalImages"
+              :key="index"
+            >
+              <a
+                :href="`https://unsplash.com/photos/${verticalImage.id}`"
+                target="_blank"
+              >
+                <img
+                  :src="verticalImage.urls.thumb"
+                  :alt="verticalImage.alt_description"
+                />
+              </a>
+            </swiper-slide>
+          </swiper>
         </div>
       </div>
     </div>
   </section>
 </template>
 <script>
+import { Autoplay } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+
 export default {
   props: {
     attr: String,
+    verticalImages: {
+      type: Array,
+      required: true,
+    },
+  },
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  setup() {
+    return {
+      modules: [Autoplay],
+    };
   },
 };
 </script>
@@ -52,33 +84,6 @@ export default {
     a {
       border-radius: 50px;
       margin-bottom: 100px;
-    }
-  }
-  .unsplash__body {
-    padding-left: calc((100% - 1280px) / 2);
-
-    .unsplash__item {
-      display: flex;
-      gap: 10px;
-
-      > div {
-        width: 25%;
-
-        img {
-          width: 100%;
-          border-radius: 20px;
-        }
-      }
-    }
-  }
-}
-
-// unsplash__page
-.unsplash__cont {
-  ul {
-    column-count: 4;
-    li {
-      margin-bottom: 20px;
     }
   }
 }
